@@ -1,27 +1,42 @@
 package com.store.client;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import com.store.model.Laptop;
 
 public class Driver {
 	
 	public void setDiscount(Double discountRate,Laptop[] lapArr) {
-		Arrays.stream(lapArr).forEach(laptop->laptop.setDiscountRate(discountRate));
-		
+		Arrays.stream(lapArr).filter(Objects::nonNull).forEach(laptop->laptop.setDiscountRate(discountRate));
 	}
 
 	public List<Laptop> search(String brand,Laptop[] lapArr){
-		
-		List<Laptop> filteredLaptopBrands=Arrays.stream(lapArr)
-				.peek(x->System.out.println("operation on"+x))
-				.filter(laptop->laptop.getBrand().equals(brand)).collect(Collectors.toList()); 
-		return filteredLaptopBrands;
-		
+		List<Laptop> filteredByBrand=new ArrayList<Laptop>();
+		for (Laptop laptop : lapArr) {
+			if(laptop!=null) {
+				if(laptop.getBrand().equals(brand)) {
+					laptop.setDiscountedPrice(laptop.calculateDiscount());
+					filteredByBrand.add(laptop);
+				}
+			}
+		}
+		return filteredByBrand;
 	}
+	
+//	public List<Laptop> searchJava8(String brand,Laptop[] lapArr){
+//	List<Laptop> filteredLaptopBrands=Arrays.stream(lapArr)
+////			.peek(x->System.out.println("operation on"+x))
+//			.filter(Objects::nonNull)
+//			.filter(laptop->laptop.getBrand().equals(brand))
+//			.forEach(laptop->laptop.setDiscountedPrice(laptop.calculateDiscount()))
+//			.collect(Collectors.toList()); 
+//	return filteredLaptopBrands;
+//	}
+//	
 	public static void main(String[] args) {
 		Driver driver = new Driver();
 		Laptop[] laptopArr = new Laptop[30];
@@ -43,7 +58,7 @@ public class Driver {
 		laptopArr[5]=lenovo;
 	    
 		//setting same discount rate for all laptops
-		driver.setDiscount(12.0, Arrays.copyOfRange(laptopArr, 0, 6));
+		driver.setDiscount(12.0,laptopArr );
 		
 	     for(int i=0; i<6; i++) {
 			System.out.println(laptopArr[i].toString());
@@ -53,7 +68,7 @@ public class Driver {
 //		dell.setDiscountRate(12);
 //		lenovo.setDiscountRate(12);
 //		
-//		System.out.println(hp.calculateDiscount());
+	    System.out.println(hp.calculateDiscount());
 //		System.out.println(dell.calculateDiscount());
 //		System.out.println(lenovo.calculateDiscount());
 //		
@@ -64,8 +79,8 @@ public class Driver {
 //	        stm.forEach(str -> System.out.print(str + " "));
 		
 		
-		List<Laptop> laptopFilteredByBrand=driver.search("HP",Arrays.copyOfRange(laptopArr, 0, 6));
-		//System.out.println(laptopFilteredByBrand);
+		List<Laptop> laptopFilteredByBrand=driver.search("HP",laptopArr);
+		System.out.println(laptopFilteredByBrand);
 	}
 
 }

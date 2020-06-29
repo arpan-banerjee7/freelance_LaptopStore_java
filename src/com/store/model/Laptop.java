@@ -23,18 +23,19 @@ public class Laptop {
 	private int manufactureYear;
 	private double price;
 	private double discountRate;
-	
-	 static int noOfObjects = 0; 
-	  
-	    // Instead of performing increment in the constructor for counting the number of objects created
-	    // instance block is preferred to make this program generic. 
-	    { 
-	        noOfObjects += 1; 
-	    } 
-	    
-	public Laptop() {	
+	private double discountedPrice;
+
+	static int noOfObjects = 0;
+
+	// Instead of performing increment in the constructor for counting the number of
+	// objects created
+	// instance block is preferred to make this program generic.
+	{
+		noOfObjects += 1;
 	}
 
+	public Laptop() {
+	}
 
 	public Laptop(String brand, String model, int manufactureYear, double price) {
 		super();
@@ -42,74 +43,80 @@ public class Laptop {
 		this.model = model;
 		this.manufactureYear = manufactureYear;
 		this.price = price;
-		
+
 	}
 
+	// copy constructor
+	public Laptop(Laptop lap) {
+		System.out.println("Copy constructor called");
+		brand = lap.brand;
+		model = lap.model;
+		manufactureYear = lap.manufactureYear;
+		price = lap.price;
+	}
 
 	public String getBrand() {
 		return brand;
 	}
 
-
 	public void setBrand(String brand) {
 		this.brand = brand;
 	}
-
 
 	public String getModel() {
 		return model;
 	}
 
-
 	public void setModel(String model) {
 		this.model = model;
 	}
-
 
 	public int getManufactureYear() {
 		return manufactureYear;
 	}
 
-
 	public void setManufactureYear(int manufactureYear) {
 		this.manufactureYear = manufactureYear;
 	}
-
 
 	public double getPrice() {
 		return price;
 	}
 
-
 	public void setPrice(double price) {
 		this.price = price;
 	}
-
 
 	public double getDiscountRate() {
 		return discountRate;
 	}
 
-
 	public void setDiscountRate(double discountRate) {
 		this.discountRate = discountRate;
 	}
 
+	public double getDiscountedPrice() {
+		return discountedPrice;
+	}
+
+	public void setDiscountedPrice(double discountedPrice) {
+		this.discountedPrice = discountedPrice;
+	}
 
 	@Override
 	public String toString() {
 		return "Laptop [brand=" + brand + ", model=" + model + ", manufactureYear=" + manufactureYear + ", price="
-				+ price + "]";
+				+ price + " discountedPrice=" + discountedPrice + "]";
 	}
 
-	//method to calculate and return discounted price
+	// method to calculate and return discounted price
 	public double calculateDiscount() {
-		double discountedPrice=(this.price-(this.price*this.discountRate)/100);
+		double discountedPrice = (this.price - (this.price * this.discountRate) / 100);
+		this.setDiscountedPrice(discountedPrice);
 		return discountedPrice;
 	}
-	
-	
-	//method to return number of objects created
+
+	// method to return number of objects created
 	public static int getNumberOfObjects() {
 		return Laptop.noOfObjects;
 	}
