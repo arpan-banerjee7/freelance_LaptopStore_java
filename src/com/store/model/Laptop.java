@@ -15,16 +15,15 @@ that can store at least 30 laptops. Initial the array with 10 laptop objects.
 */
 package com.store.model;
 
-import java.util.List;
-
 public class Laptop {
 	private String brand;
 	private String model;
-	private int manufactureYear;
+	private String manufactureYear;
 	private double price;
 	private double discountRate;
 	private double discountedPrice;
 
+	
 	static int noOfObjects = 0;
 
 	// Instead of performing increment in the constructor for counting the number of
@@ -37,23 +36,15 @@ public class Laptop {
 	public Laptop() {
 	}
 
-	public Laptop(String brand, String model, int manufactureYear, double price) {
-		super();
+	
+	public Laptop(String brand, String model, String manufactureYear, double price) {
 		this.brand = brand;
 		this.model = model;
 		this.manufactureYear = manufactureYear;
 		this.price = price;
-
+		
 	}
 
-	// copy constructor
-	public Laptop(Laptop lap) {
-		System.out.println("Copy constructor called");
-		brand = lap.brand;
-		model = lap.model;
-		manufactureYear = lap.manufactureYear;
-		price = lap.price;
-	}
 
 	public String getBrand() {
 		return brand;
@@ -71,11 +62,13 @@ public class Laptop {
 		this.model = model;
 	}
 
-	public int getManufactureYear() {
+
+	public String getManufactureYear() {
 		return manufactureYear;
 	}
 
-	public void setManufactureYear(int manufactureYear) {
+
+	public void setManufactureYear(String manufactureYear) {
 		this.manufactureYear = manufactureYear;
 	}
 
