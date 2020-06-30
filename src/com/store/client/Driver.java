@@ -94,7 +94,7 @@ public class Driver {
 		
 
 		// keeping a track of the number of objects created
-		System.out.println(Laptop.getNumberOfObjects());
+		System.out.println("Total number of objetcs created : "+Laptop.getNumberOfObjects());
 
 		// initializing the array with 10 laptop objects
 		laptopArr[0] = hp;
